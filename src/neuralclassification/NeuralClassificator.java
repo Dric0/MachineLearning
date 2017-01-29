@@ -42,7 +42,7 @@ public class NeuralClassificator {
             }
         }
         
-        Trainer t = new Trainer("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs","trainingfiles.txt", "hue.nnet");
+        Trainer t = new Trainer("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs","trainingfiles.txt", "pdf_classificator.nnet");
         t.trainNeuralNetwork();
         
 //        // create new perceptron network

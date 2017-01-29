@@ -13,8 +13,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  *
@@ -27,6 +28,7 @@ public class PreProcessor {
     private ArrayList<String> separatedText;
     private ArrayList<String> stopWords;
     private Map<String, Integer> frequency;
+    private LinkedHashMap<String, Integer> sortedFrequency;
     
     private WordChecker WC;
     
@@ -57,6 +59,8 @@ public class PreProcessor {
         removeNonLanguageWord();
         processFrequency();
         removeLowFrequency();
+        removeSmallWords();
+        sort();
         
         return separatedText;
     }
@@ -69,6 +73,8 @@ public class PreProcessor {
         removeNonLanguageWord();
         processFrequency();
         removeLowFrequency();
+        removeSmallWords();
+        sort();
         
         return separatedText;
     } 
@@ -86,6 +92,19 @@ public class PreProcessor {
 
     public Map<String, Integer> getFrequency() {
         return frequency;
+    }
+    
+    public Map<String, Integer> getFrequency(float porcentage) {
+        Map<String, Integer> slice = new HashMap<>();
+        
+        int quantity = (int) (sortedFrequency.size()*porcentage);
+        for(Iterator<Map.Entry<String, Integer>> it = sortedFrequency.entrySet().iterator(); it.hasNext(); ) {
+            Map.Entry<String, Integer> entry = it.next();
+            if (slice.size() == quantity) break;
+            slice.put(it.next().getKey(), it.next().getValue());
+        }
+        
+        return slice;
     }
     
     public String getProcessedText() {
@@ -148,6 +167,15 @@ public class PreProcessor {
         }
     }
     
+    void removeSmallWords() {
+        for(Iterator<Map.Entry<String, Integer>> it = frequency.entrySet().iterator(); it.hasNext(); ) {
+            Map.Entry<String, Integer> entry = it.next();
+            if (entry.getKey().length() <= 2) {
+                it.remove();
+            }
+        }
+    }
+    
     void removeLowFrequency() {
         frequency.values().removeAll(Collections.singleton(1));
     }
@@ -161,5 +189,34 @@ public class PreProcessor {
                 line = br.readLine();
             }
         }
+    }
+    
+    public void sort() {
+        List<String> mapKeys = new ArrayList<>(frequency.keySet());
+        List<Integer> mapValues = new ArrayList<>(frequency.values());
+        
+        Collections.sort(mapValues, Collections.reverseOrder());
+        Collections.sort(mapKeys,   Collections.reverseOrder());
+
+        sortedFrequency = new LinkedHashMap<>();
+
+        Iterator<Integer> valueIt = mapValues.iterator();
+        while (valueIt.hasNext()) {
+            int val = valueIt.next();
+            Iterator<String> keyIt = mapKeys.iterator();
+
+            while (keyIt.hasNext()) {
+                String key = keyIt.next();
+                int comp1 = frequency.get(key);
+                int comp2 = val;
+
+                if (comp1 == comp2) {
+                    keyIt.remove();
+                    sortedFrequency.put(key, val);
+                    break;
+                }
+            }
+        }
+        System.out.println(sortedFrequency);
     }
  }

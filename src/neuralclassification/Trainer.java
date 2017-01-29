@@ -85,7 +85,7 @@ public class Trainer {
     void processTexts() {
         for (String name : texts.keySet()) {
             PP.process(readText(name));
-            frequencys.add(PP.getFrequency());
+            frequencys.add(PP.getFrequency((float) 0.1));
         }
     }
     
@@ -145,7 +145,7 @@ public class Trainer {
         //System.out.println(texts);
         //System.out.println(textNames);
         processTexts();
-        System.out.println(frequencys);
+        //System.out.println(frequencys);
         processKeywords();
         //System.out.println(keywords);
         calculateInputNeurons();
