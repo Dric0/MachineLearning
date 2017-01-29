@@ -29,6 +29,9 @@ public class NeuralClassificator {
         //t.trainNeuralNetwork();
         
         Classificator c = new Classificator("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs", "pdf_classificator.nnet");
+        Utils u = new Utils("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs");
+        
+        System.out.println(u.convertData(new double[]{0, 0, 0, 1, 0, 1, 1, 0, 1, 1}));
 
     }
 }
