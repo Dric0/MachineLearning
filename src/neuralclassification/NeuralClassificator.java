@@ -19,12 +19,15 @@ public class NeuralClassificator {
      */
     public static void main(String[] args) throws IOException {
         Trainer t = new Trainer("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs","trainingfiles.txt", "pdf_classificator2.nnet");
+        t.calculateNeuralNetwork((float)0.1);
+        t.configureNeuralNetwork((float)0.01, (float)0.4, 1000);
         t.trainNeuralNetwork();
+        t.finishNeuralNetwork();
         
-        //Classificator c = new Classificator("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs", "pdf_classificator.nnet");
+        //Classificator c = new Classificator("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs", "pdf_classificator3.nnet");
         //Utils u = new Utils("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs");
         
-        //System.out.println(u.convertData(new double[]{0, 0, 0, 1, 0, 1, 1, 0, 1, 1}));
+        //System.out.println(u.convertData(c.classify("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs", "2.pdf")));
 
     }
 }

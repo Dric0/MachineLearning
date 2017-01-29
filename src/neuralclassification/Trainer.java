@@ -6,10 +6,8 @@
 package neuralclassification;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -20,6 +18,7 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
 import org.neuroph.nnet.MultiLayerPerceptron;
+import org.neuroph.nnet.learning.MomentumBackpropagation;
 import org.neuroph.util.TransferFunctionType;
 
 /**
@@ -85,10 +84,10 @@ public class Trainer {
         return upper/lower;
     }
     
-    void processTexts() {
+    void processTexts(float porcentage) {
         for (String name : texts.keySet()) {
             PP.process(readText(name));
-            frequencys.add(PP.getFrequency((float) 0.1));
+            frequencys.add(PP.getFrequency(porcentage));
         }
     }
     
@@ -103,7 +102,7 @@ public class Trainer {
     }
     
     void calculateHiddenNeurons() {
-        hiddenNeurons = (inputNeurons + outputNeurons)/2;
+        hiddenNeurons = 1;
     }
     
     void calculateInputNeurons() {
@@ -141,30 +140,55 @@ public class Trainer {
         }
     }
     
-    void trainNeuralNetwork() throws IOException {
+    void calculateNeuralNetwork(float porcentage) throws IOException {
         calculateOutputNeurons();
         //System.out.println(outputNeurons);
         loadAllTexts();
         //System.out.println(texts);
         //System.out.println(textNames);
-        processTexts();
+        processTexts(porcentage);
         //System.out.println(frequencys);
         processKeywords();
         //System.out.println(keywords);
         calculateInputNeurons();
         //System.out.println(inputNeurons);
-        //calculateHiddenNeurons();
+        calculateHiddenNeurons();
         //System.out.println(hiddenNeurons);
         createTrainingSet();
-        
+    }
+    
+    void configureNeuralNetwork(float rate, float momentum, int iterations) {
         MLPerceptron = new MultiLayerPerceptron(
-                TransferFunctionType.SIGMOID, 
+                TransferFunctionType.TANH, 
                 inputNeurons, 
                 hiddenNeurons, 
                 outputNeurons);
-        MLPerceptron.learn(trainingSet);
-        MLPerceptron.save(filepath + "/" + trainingfile);
         
+        MomentumBackpropagation learningRule = 
+                (MomentumBackpropagation) MLPerceptron.getLearningRule();
+        learningRule.setLearningRate(rate);
+        learningRule.setMomentum(momentum);
+        learningRule.setMaxIterations(iterations);
+    }
+    
+    void trainNeuralNetwork() {
+        MLPerceptron.learn(trainingSet);
+    }
+    
+    void stopNeuralNetwork() {
+        MLPerceptron.stopLearning();
+    }
+    
+    void pauseNeuralNetwork() {
+        MLPerceptron.pauseLearning();
+    }
+    
+    void resumeNeuralNetwork() {
+        MLPerceptron.resumeLearning();
+    }
+    
+    void finishNeuralNetwork() {
+        MLPerceptron.save(filepath + "/" + trainingfile);
         saveKeywords();
     }
     

@@ -82,9 +82,10 @@ public class Classificator {
     
     double[] classify(String pdfpath, String name) {
         PP.process(readText(pdfpath, name));
-        double[] input = getInput(PP.getFrequency((float) 0.1));
+        double[] input = getInput(PP.getFrequency());
     
         MLPerceptron.setInput(input);
+        MLPerceptron.calculate();
         
         return MLPerceptron.getOutput();
     }

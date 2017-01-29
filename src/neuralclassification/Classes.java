@@ -9,9 +9,9 @@ package neuralclassification;
  *
  * @author lionswrath
  */
-public class Classes {
+public final class Classes {
     Boolean classes[];
-    private int numberOfClasses;
+    private final int numberOfClasses;
 
     public Classes(String[] data, int number) {
         numberOfClasses = number;
