@@ -6,13 +6,6 @@
 package neuralclassification;
 
 import java.io.*;
-import org.apache.pdfbox.pdmodel.*;
-//import org.apache.pdfbox.util.*;
-import org.apache.pdfbox.text.PDFTextStripper;
-import org.neuroph.core.NeuralNetwork;
-import org.neuroph.core.data.DataSet;
-import org.neuroph.core.data.DataSetRow;
-import org.neuroph.nnet.Perceptron;
 
 /**
  *
@@ -25,13 +18,13 @@ public class NeuralClassificator {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
-        //Trainer t = new Trainer("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs","trainingfiles.txt", "pdf_classificator.nnet");
-        //t.trainNeuralNetwork();
+        Trainer t = new Trainer("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs","trainingfiles.txt", "pdf_classificator2.nnet");
+        t.trainNeuralNetwork();
         
-        Classificator c = new Classificator("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs", "pdf_classificator.nnet");
-        Utils u = new Utils("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs");
+        //Classificator c = new Classificator("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs", "pdf_classificator.nnet");
+        //Utils u = new Utils("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs");
         
-        System.out.println(u.convertData(new double[]{0, 0, 0, 1, 0, 1, 1, 0, 1, 1}));
+        //System.out.println(u.convertData(new double[]{0, 0, 0, 1, 0, 1, 1, 0, 1, 1}));
 
     }
 }

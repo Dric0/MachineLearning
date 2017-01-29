@@ -37,7 +37,7 @@ public class Classificator {
         this.nnetname = name;
         
         loadKeywords();
-        //loadNeuralNetwork();
+        loadNeuralNetwork();
     }
     
     double normalizeData(int data, int min, int max) {

@@ -152,18 +152,18 @@ public class Trainer {
         processKeywords();
         //System.out.println(keywords);
         calculateInputNeurons();
-        System.out.println(inputNeurons);
-        calculateHiddenNeurons();
+        //System.out.println(inputNeurons);
+        //calculateHiddenNeurons();
         //System.out.println(hiddenNeurons);
         createTrainingSet();
         
-//        MLPerceptron = new MultiLayerPerceptron(
-//                TransferFunctionType.TANH, 
-//                inputNeurons, 
-//                hiddenNeurons, 
-//                outputNeurons);
-//        MLPerceptron.learn(trainingSet);
-//        MLPerceptron.save(filepath + "/" + trainingfile);
+        MLPerceptron = new MultiLayerPerceptron(
+                TransferFunctionType.SIGMOID, 
+                inputNeurons, 
+                hiddenNeurons, 
+                outputNeurons);
+        MLPerceptron.learn(trainingSet);
+        MLPerceptron.save(filepath + "/" + trainingfile);
         
         saveKeywords();
     }
