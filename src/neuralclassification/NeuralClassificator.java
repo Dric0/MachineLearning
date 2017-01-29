@@ -25,49 +25,10 @@ public class NeuralClassificator {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
+        //Trainer t = new Trainer("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs","trainingfiles.txt", "pdf_classificator.nnet");
+        //t.trainNeuralNetwork();
+        
+        Classificator c = new Classificator("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs", "pdf_classificator.nnet");
 
-        PDDocument pdfDocument = null;
-        String paper = null;
-        try {
-            pdfDocument = PDDocument.load(new File("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs/2.pdf"));
-            PDFTextStripper stripper = new PDFTextStripper();
-            paper = stripper.getText(pdfDocument);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (pdfDocument != null) try {
-            pdfDocument.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        
-        Trainer t = new Trainer("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs","trainingfiles.txt", "pdf_classificator.nnet");
-        t.trainNeuralNetwork();
-        
-//        // create new perceptron network
-//        NeuralNetwork neuralNetwork = new Perceptron(2, 1);
-//        // create training set
-//        DataSet trainingSet = new DataSet(2, 1);
-//        // add training data to training set (logical OR function)
-//        trainingSet. addRow (new DataSetRow (new double[]{0, 0}, new double[]{0}));
-//        trainingSet. addRow (new DataSetRow (new double[]{0, 1}, new double[]{1}));
-//        trainingSet. addRow (new DataSetRow (new double[]{1, 0}, new double[]{1}));
-//        trainingSet. addRow (new DataSetRow (new double[]{1, 1}, new double[]{1}));
-//        // learn the training set
-//        neuralNetwork.learn(trainingSet);
-//        // save the trained network into file
-//        neuralNetwork.save("or_perceptron.nnet");
-//        
-//        // load the saved network
-//        neuralNetwork = NeuralNetwork.createFromFile("or_perceptron.nnet");
-//        // set network input
-//        neuralNetwork.setInput(0, 1);
-//        // calculate network
-//        neuralNetwork.calculate();
-//        // get network output
-//        double[] networkOutput = neuralNetwork.getOutput();
-//        
-//        System.out.println(networkOutput[0]);
     }
 }

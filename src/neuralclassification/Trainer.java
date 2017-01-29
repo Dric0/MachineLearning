@@ -6,9 +6,12 @@
 package neuralclassification;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -127,7 +130,7 @@ public class Trainer {
                 String word = keywords.get(i);
                 
                 if (frequency.containsKey(word))
-                    data[i] = normalizeData(frequency.get(word), 0, 20);
+                    data[i] = normalizeData(frequency.get(word), 0, 100);
                 else data[i] = 0;
             }
             
@@ -154,13 +157,15 @@ public class Trainer {
         //System.out.println(hiddenNeurons);
         createTrainingSet();
         
-        MLPerceptron = new MultiLayerPerceptron(
-                TransferFunctionType.TANH, 
-                inputNeurons, 
-                hiddenNeurons, 
-                outputNeurons);
-        MLPerceptron.learn(trainingSet);
-        MLPerceptron.save(filepath + "/" + trainingfile);
+//        MLPerceptron = new MultiLayerPerceptron(
+//                TransferFunctionType.TANH, 
+//                inputNeurons, 
+//                hiddenNeurons, 
+//                outputNeurons);
+//        MLPerceptron.learn(trainingSet);
+//        MLPerceptron.save(filepath + "/" + trainingfile);
+        
+        saveKeywords();
     }
     
     void loadAllTexts() throws IOException{
@@ -180,5 +185,17 @@ public class Trainer {
     
     void printLoadedTextsData() {
         System.out.println(texts);
+    }
+    
+    void saveKeywords() {
+        String[] slice = trainingfile.split("\\.");
+        
+        try{
+            PrintWriter writer = new PrintWriter(filepath + "/" + slice[0] + "_kw.txt", "UTF-8");
+            for (String word : keywords) {
+                writer.println(word);
+            }
+            writer.close();
+        } catch (IOException e) {}
     }
 }
