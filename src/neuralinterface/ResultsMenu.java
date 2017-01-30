@@ -5,6 +5,15 @@
  */
 package neuralinterface;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import javax.swing.BoundedRangeModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Gabriel
@@ -14,10 +23,34 @@ public class ResultsMenu extends javax.swing.JFrame {
     /**
      * Creates new form Results
      */
+    Map<String, ArrayList<String>> data;
+    
+    public ResultsMenu(Map<String, ArrayList<String>> data) {
+        initComponents();
+        this.data = data;
+        loadData();
+    }
+    
     public ResultsMenu() {
         initComponents();
     }
 
+    void loadData() {
+        DefaultTableModel table = (DefaultTableModel) jTable1.getModel();
+        
+        Iterator it = data.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+
+            for (String classes : (ArrayList<String>) pair.getValue()) {
+                Object[] itemTabela = {pair.getKey(), classes};
+                table.addRow(itemTabela);
+            }
+            
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

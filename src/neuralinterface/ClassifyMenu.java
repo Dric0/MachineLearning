@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -28,6 +30,8 @@ public class ClassifyMenu extends javax.swing.JFrame {
     /**
      * Creates new form ClassifyMenu1
      */
+    ResultsMenu rm;
+    
     public ClassifyMenu() {
         initComponents();
     }
@@ -241,6 +245,8 @@ public class ClassifyMenu extends javax.swing.JFrame {
         Path p = Paths.get(jTextFieldRede.getText());
         String nnetpath = p.getFileName().toString();
         String abspath = p.getParent().toString();
+        
+        Map<String, ArrayList<String>> data = new HashMap<>();
 
         System.out.println(abspath);
         
@@ -258,8 +264,12 @@ public class ClassifyMenu extends javax.swing.JFrame {
             Classificator c = new Classificator(abspath, nnetpath);
             
             for (int i=0; i<names.size(); i++) {
-                System.out.println(u.convertData(c.classify(paths.get(i), names.get(i))));
+                data.put(names.get(i), u.convertData(c.classify(paths.get(i), names.get(i))));
             }
+            
+            rm = new ResultsMenu(data);
+            rm.setVisible(true);
+            dispose();
         } catch (IOException e) {
             System.out.println("IOException error!");
         }

@@ -6,8 +6,12 @@
 package neuralinterface;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import neuralclassification.Trainer;
 
 /**
  *
@@ -18,8 +22,15 @@ public class TrainMenu extends javax.swing.JFrame {
     /**
      * Creates new form Treinar
      */
+    Trainer t;
+    
     public TrainMenu() {
         initComponents();
+                
+        jButtonParar.setEnabled(false);
+        jButtonPausar.setEnabled(false);
+        jButtonResumir.setEnabled(false);
+        jButtonTreinar.setEnabled(true);
     }
 
     /**
@@ -50,7 +61,6 @@ public class TrainMenu extends javax.swing.JFrame {
         jTextFieldNumInter = new javax.swing.JTextField();
         jTextFieldOutput = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jButtonOutputFile = new javax.swing.JButton();
         jTextFieldCaminho = new javax.swing.JTextField();
         jTextFieldMomentum = new javax.swing.JTextField();
         jButtonPausar = new javax.swing.JButton();
@@ -62,6 +72,11 @@ public class TrainMenu extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(430, 450));
 
         jButtonParar.setText("Parar");
+        jButtonParar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPararActionPerformed(evt);
+            }
+        });
 
         jButtonVoltar.setText("Voltar");
         jButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -95,18 +110,26 @@ public class TrainMenu extends javax.swing.JFrame {
 
         jLabel9.setText("Caminho:");
 
-        jButtonOutputFile.setText("Selecionar");
-        jButtonOutputFile.addActionListener(new java.awt.event.ActionListener() {
+        jButtonPausar.setText("Pausar");
+        jButtonPausar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonOutputFileActionPerformed(evt);
+                jButtonPausarActionPerformed(evt);
             }
         });
 
-        jButtonPausar.setText("Pausar");
-
         jButtonResumir.setText("Resumir");
+        jButtonResumir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonResumirActionPerformed(evt);
+            }
+        });
 
         jButtonTreinar.setText("Treinar");
+        jButtonTreinar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTreinarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,57 +146,54 @@ public class TrainMenu extends javax.swing.JFrame {
                         .addComponent(jTextFieldNome))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel6)
-                        .addGap(67, 67, 67)
-                        .addComponent(jButtonInputFile, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel9)
                         .addGap(18, 18, 18)
                         .addComponent(jTextFieldCaminho))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel6)
+                                .addGap(67, 67, 67)
+                                .addComponent(jButtonInputFile, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(10, 10, 10)
-                                        .addComponent(jTextFieldOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButtonOutputFile, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jTextFieldOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel7)
-                                    .addComponent(jLabel1))
-                                .addGap(0, 87, Short.MAX_VALUE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(59, 59, 59)
+                                    .addComponent(jLabel1)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jButtonResumir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButtonPausar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(37, 37, 37)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jButtonTreinar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButtonParar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel2))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTextFieldMomentum)
-                                        .addComponent(jTextFieldNumInter, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel5)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(59, 59, 59)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jButtonResumir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jButtonPausar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(37, 37, 37)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jButtonTreinar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jButtonParar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addGap(7, 7, 7)
-                                            .addComponent(jLabel4)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTextFieldPorcPalav)
-                                        .addComponent(jTextFieldTaxaAprend, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel3)
+                                                .addComponent(jLabel2))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jTextFieldMomentum)
+                                                .addComponent(jTextFieldNumInter, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel5)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                    .addGap(7, 7, 7)
+                                                    .addComponent(jLabel4)))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jTextFieldPorcPalav)
+                                                .addComponent(jTextFieldTaxaAprend, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                        .addGap(0, 37, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -196,9 +216,7 @@ public class TrainMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonOutputFile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jTextFieldOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -217,13 +235,13 @@ public class TrainMenu extends javax.swing.JFrame {
                     .addComponent(jTextFieldPorcPalav, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonPausar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonTreinar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonResumir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonParar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonParar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -255,23 +273,72 @@ public class TrainMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonInputFileActionPerformed
 
-    private void jButtonOutputFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOutputFileActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Selecione o arquivo de saída");
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos", "txt");
-        fileChooser.setFileFilter(filter);
+    private void jButtonPararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPararActionPerformed
+        // TODO add your handling code here:
+        jButtonParar.setEnabled(false);
+        jButtonPausar.setEnabled(false);
+        jButtonResumir.setEnabled(false);
+        jButtonTreinar.setEnabled(true);
+        
+        t.stopNeuralNetwork();
+    }//GEN-LAST:event_jButtonPararActionPerformed
 
-        int retorno = fileChooser.showOpenDialog(this);
-
-        if (retorno == JFileChooser.APPROVE_OPTION) {
-            File arquivo = fileChooser.getSelectedFile();
-            if (arquivo.isFile()) {
-                jTextFieldOutput.setText(arquivo.getAbsolutePath());
-            }
-
+    private void jButtonTreinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTreinarActionPerformed
+        // TODO add your handling code here:
+        jButtonParar.setEnabled(true);
+        jButtonPausar.setEnabled(true);
+        jButtonResumir.setEnabled(false);
+        jButtonTreinar.setEnabled(false);
+        
+        //training txt
+        String filename = jTextFieldNome.getText();
+        String filepath = jTextFieldCaminho.getText();
+        
+        String outputname = jTextFieldOutput.getText();
+        
+        int iteration = Integer.parseInt(jTextFieldNumInter.getText());
+        float momentum = Float.parseFloat(jTextFieldMomentum.getText());
+        float porcentage = Float.parseFloat(jTextFieldPorcPalav.getText());
+        float rate = Float.parseFloat(jTextFieldTaxaAprend.getText());
+        
+        try {
+            t = new Trainer(filepath, filename, outputname);
+            
+            t.calculateNeuralNetwork(porcentage);
+            t.configureNeuralNetwork(rate, momentum, iteration);
+            t.trainNeuralNetwork();
+            t.finishNeuralNetwork();
+            
+            t.trainNeuralNetwork();
+            
+            jButtonParar.setEnabled(false);
+            jButtonPausar.setEnabled(false);
+            jButtonResumir.setEnabled(false);
+            jButtonTreinar.setEnabled(true);
+        } catch (IOException ex) {
+            Logger.getLogger(TrainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButtonOutputFileActionPerformed
+    }//GEN-LAST:event_jButtonTreinarActionPerformed
+
+    private void jButtonPausarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPausarActionPerformed
+        // TODO add your handling code here:
+        jButtonParar.setEnabled(false);
+        jButtonPausar.setEnabled(false);
+        jButtonResumir.setEnabled(true);
+        jButtonTreinar.setEnabled(false);
+        
+        t.pauseNeuralNetwork();
+    }//GEN-LAST:event_jButtonPausarActionPerformed
+
+    private void jButtonResumirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResumirActionPerformed
+        // TODO add your handling code here:
+        jButtonParar.setEnabled(true);
+        jButtonPausar.setEnabled(true);
+        jButtonResumir.setEnabled(false);
+        jButtonTreinar.setEnabled(false);
+        
+        t.resumeNeuralNetwork();
+    }//GEN-LAST:event_jButtonResumirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,7 +378,6 @@ public class TrainMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonInputFile;
-    private javax.swing.JButton jButtonOutputFile;
     private javax.swing.JButton jButtonParar;
     private javax.swing.JButton jButtonPausar;
     private javax.swing.JButton jButtonResumir;

@@ -141,7 +141,7 @@ public class Trainer {
         }
     }
     
-    void calculateNeuralNetwork(float porcentage) throws IOException {
+    public void calculateNeuralNetwork(float porcentage) throws IOException {
         calculateOutputNeurons();
         //System.out.println(outputNeurons);
         loadAllTexts();
@@ -158,7 +158,7 @@ public class Trainer {
         createTrainingSet();
     }
     
-    void configureNeuralNetwork(float rate, float momentum, int iterations) {
+    public void configureNeuralNetwork(float rate, float momentum, int iterations) {
         MLPerceptron = new MultiLayerPerceptron(
                 TransferFunctionType.TANH, 
                 inputNeurons, 
@@ -172,23 +172,23 @@ public class Trainer {
         learningRule.setMaxIterations(iterations);
     }
     
-    void trainNeuralNetwork() {
+    public void trainNeuralNetwork() {
         MLPerceptron.learn(trainingSet);
     }
     
-    void stopNeuralNetwork() {
+    public void stopNeuralNetwork() {
         MLPerceptron.stopLearning();
     }
     
-    void pauseNeuralNetwork() {
+    public void pauseNeuralNetwork() {
         MLPerceptron.pauseLearning();
     }
     
-    void resumeNeuralNetwork() {
+    public void resumeNeuralNetwork() {
         MLPerceptron.resumeLearning();
     }
     
-    void finishNeuralNetwork() {
+    public void finishNeuralNetwork() {
         MLPerceptron.save(filepath + "/" + trainingfile);
         saveKeywords();
     }
