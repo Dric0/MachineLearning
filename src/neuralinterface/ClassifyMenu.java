@@ -6,9 +6,18 @@
 package neuralinterface;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import neuralclassification.Classificator;
+import neuralclassification.Utils;
 
 /**
  *
@@ -226,8 +235,34 @@ public class ClassifyMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButtonClassificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClassificarActionPerformed
-        ResultsMenu resultsMenu = new ResultsMenu();
-        resultsMenu.setVisible(true);
+        // TODO add your handling code here:
+        List<String> names = new ArrayList<>();
+        List<String> paths = new ArrayList<>();
+        Path p = Paths.get(jTextFieldRede.getText());
+        String nnetpath = p.getFileName().toString();
+        String abspath = p.getParent().toString();
+
+        System.out.println(abspath);
+        
+        for (int column = 0; column < jTable1.getColumnCount(); column++) {
+            for(int row = 0; row < jTable1.getRowCount(); row++) {
+                if (column == 0)
+                    names.add((String) jTable1.getValueAt(row, column));
+                else
+                    paths.add((String) jTable1.getValueAt(row, column));
+            }   
+        }
+        
+        Utils u = new Utils(abspath);
+        try {
+            Classificator c = new Classificator(abspath, nnetpath);
+            
+            for (int i=0; i<names.size(); i++) {
+                System.out.println(u.convertData(c.classify(paths.get(i), names.get(i))));
+            }
+        } catch (IOException e) {
+            System.out.println("IOException error!");
+        }
     }//GEN-LAST:event_jButtonClassificarActionPerformed
 
     private boolean estaNaLista(File arquivo) {

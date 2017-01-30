@@ -97,10 +97,14 @@ public class PreProcessor {
     public Map<String, Integer> getFrequency(float porcentage) {
         Map<String, Integer> slice = new HashMap<>();
         
+        porcentage = porcentage < 0 ? 0 : porcentage;
+        porcentage = porcentage > 1 ? 1 : porcentage;
+        
         int quantity = (int) (sortedFrequency.size()*porcentage);
-        for(Iterator<Map.Entry<String, Integer>> it = sortedFrequency.entrySet().iterator(); it.hasNext(); ) {
+        for(Iterator<Map.Entry<String, Integer>> it = 
+                sortedFrequency.entrySet().iterator(); it.hasNext(); ) {
             Map.Entry<String, Integer> entry = it.next();
-            if (slice.size() == quantity) break;
+            if (slice.size() == quantity) break; //lol
             slice.put(it.next().getKey(), it.next().getValue());
         }
         
@@ -217,6 +221,6 @@ public class PreProcessor {
                 }
             }
         }
-        System.out.println(sortedFrequency);
+        //System.out.println(sortedFrequency);
     }
  }

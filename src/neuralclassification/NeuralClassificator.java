@@ -21,17 +21,31 @@ public class NeuralClassificator {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
-        /*Trainer t = new Trainer("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs","trainingfiles.txt", "pdf_classificator2.nnet");
-        t.calculateNeuralNetwork((float)0.1);
-        t.configureNeuralNetwork((float)0.01, (float)0.4, 1000);
-        t.trainNeuralNetwork();
-        t.finishNeuralNetwork();
+//        String pdfpath = "/home/lionswrath/Documents/IA2/PDFClassificator/PDFs";
+//        
+//        Trainer t = new Trainer(pdfpath,"trainingfiles.txt", "pdf_classificator2.nnet");
+//        t.calculateNeuralNetwork((float) 0.2);
+//        t.configureNeuralNetwork((float)0.001, (float)0.3, 100000);
+//        t.trainNeuralNetwork();
+//        t.finishNeuralNetwork();
+//        
+//        Utils u = new Utils(pdfpath);
+//        Classificator c = new Classificator(pdfpath, "pdf_classificator2.nnet");
+//        
+//        System.out.println(u.convertData(c.classify(pdfpath, "92.pdf")));
+//        System.out.println(u.convertData(c.classify(pdfpath, "95.pdf")));
+//        System.out.println(u.convertData(c.classify(pdfpath, "102.pdf")));
+//        System.out.println(u.convertData(c.classify(pdfpath, "118.pdf")));
+//        System.out.println(u.convertData(c.classify(pdfpath, "122.pdf")));
+//        System.out.println(u.convertData(c.classify(pdfpath, "170.pdf")));
+//        System.out.println(u.convertData(c.classify(pdfpath, "194.pdf")));
+//        System.out.println(u.convertData(c.classify(pdfpath, "205.pdf")));
+//        System.out.println(u.convertData(c.classify(pdfpath, "227.pdf")));
+//        System.out.println(u.convertData(c.classify(pdfpath, "257.pdf")));
+//        System.out.println(u.convertData(c.classify(pdfpath, "276.pdf")));
+//        System.out.println(u.convertData(c.classify(pdfpath, "323.pdf")));
         
-        //Classificator c = new Classificator("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs", "pdf_classificator3.nnet");
-        //Utils u = new Utils("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs");
         
-        //System.out.println(u.convertData(c.classify("/home/lionswrath/Documents/IA2/PDFClassificator/PDFs", "2.pdf")));
-        */
         MainMenu mainMenu = new MainMenu();
         mainMenu.setVisible(true);
     }
