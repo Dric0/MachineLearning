@@ -45,6 +45,7 @@ public class ClassifyMenu extends javax.swing.JFrame {
         jButtonClassificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu de Classificação");
 
         jLabel1.setText("Arquivo de rede treinado:");
 
@@ -78,7 +79,15 @@ public class ClassifyMenu extends javax.swing.JFrame {
             new String [] {
                 "NOME", "CAMINHO"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButton2.setText("Voltar");
@@ -89,6 +98,11 @@ public class ClassifyMenu extends javax.swing.JFrame {
         });
 
         jButtonClassificar.setText("Classificar");
+        jButtonClassificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonClassificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -210,6 +224,11 @@ public class ClassifyMenu extends javax.swing.JFrame {
         mainMenu.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButtonClassificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClassificarActionPerformed
+        ResultsMenu resultsMenu = new ResultsMenu();
+        resultsMenu.setVisible(true);
+    }//GEN-LAST:event_jButtonClassificarActionPerformed
 
     private boolean estaNaLista(File arquivo) {
         for (int i = 0; i < jTable1.getRowCount(); i++) {
