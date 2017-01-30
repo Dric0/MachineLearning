@@ -46,7 +46,7 @@ public class Trainer {
     int hiddenNeurons;
     
     public Trainer(String filepath, String file, String output) throws IOException {
-        PP = new PreProcessor();
+        PP = new PreProcessor(filepath);
         texts = new HashMap<>();
         textNames = new ArrayList<>();
         frequencys = new ArrayList<>();

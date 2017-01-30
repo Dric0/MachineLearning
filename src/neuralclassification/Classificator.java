@@ -30,7 +30,7 @@ public class Classificator {
     ArrayList<String> keywords;
     
     public Classificator(String path, String name) throws IOException {
-        PP = new PreProcessor();
+        PP = new PreProcessor(path);
         keywords = new ArrayList<>();
         
         this.path = path;

@@ -23,6 +23,8 @@ import java.util.Map;
  */
 public class PreProcessor {
 
+    String path;
+    
     private String originalText;
     private String processedText;
     private ArrayList<String> separatedText;
@@ -32,7 +34,9 @@ public class PreProcessor {
     
     private WordChecker WC;
     
-    public PreProcessor() throws IOException {
+    public PreProcessor(String path) throws IOException {
+        this.path = path;
+        
         frequency = new HashMap<>();
         stopWords = new ArrayList<>();
         
@@ -41,8 +45,9 @@ public class PreProcessor {
         loadStopWords();
     }
     
-    public PreProcessor(String text) throws IOException {
+    public PreProcessor(String text, String path) throws IOException {
         originalText = text.toLowerCase();
+        this.path = path;
         stopWords = new ArrayList<>();
         
         WC = new WordChecker();
@@ -185,7 +190,7 @@ public class PreProcessor {
     }
     
     private void loadStopWords() throws IOException {
-        try(BufferedReader br = new BufferedReader(new FileReader("/home/lionswrath/Documents/IA2/stopwords.txt"))) {
+        try(BufferedReader br = new BufferedReader(new FileReader(path + "/stopwords.txt"))) {
             String line = br.readLine();
 
             while (line != null) {
