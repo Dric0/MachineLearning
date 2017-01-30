@@ -85,6 +85,7 @@ public class Trainer {
     }
     
     void processTexts(float porcentage) {
+        //Testing
         for (String name : texts.keySet()) {
             PP.process(readText(name));
             frequencys.add(PP.getFrequency(porcentage));

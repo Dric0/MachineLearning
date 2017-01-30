@@ -80,7 +80,7 @@ public class Classificator {
         return data;
     }
     
-    double[] classify(String pdfpath, String name) {
+    public double[] classify(String pdfpath, String name) {
         PP.process(readText(pdfpath, name));
         double[] input = getInput(PP.getFrequency());
     
