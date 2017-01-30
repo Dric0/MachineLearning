@@ -267,8 +267,12 @@ public class ClassifyMenu extends javax.swing.JFrame {
                 data.put(names.get(i), u.convertData(c.classify(paths.get(i), names.get(i))));
             }
             
-            rm = new ResultsMenu(data);
+            System.out.println(data);
+            
+            rm = new ResultsMenu();
+            rm.setData(data);
             rm.setVisible(true);
+            rm.loadData();
             dispose();
         } catch (IOException e) {
             System.out.println("IOException error!");

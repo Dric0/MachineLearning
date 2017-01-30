@@ -25,14 +25,12 @@ public class ResultsMenu extends javax.swing.JFrame {
      */
     Map<String, ArrayList<String>> data;
     
-    public ResultsMenu(Map<String, ArrayList<String>> data) {
-        initComponents();
-        this.data = data;
-        loadData();
-    }
-    
     public ResultsMenu() {
         initComponents();
+    }
+    
+    void setData(Map<String, ArrayList<String>> data) {
+        this.data = data;
     }
 
     void loadData() {
