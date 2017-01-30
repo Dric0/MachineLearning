@@ -1,0 +1,15 @@
+General
+Applications and Expert Knowledge Intensive Systems
+Automatic Programming
+Deduction and Theorem Proving and Knowledge Processing
+Knowledge Representation Formalisms and Methods
+Programming Languages and Software
+Learning
+Natural Language Processing
+Problem Solving, Control Methods, and Search
+Robotics
+Vision and Scene Understanding
+Distributed Artificial Intelligence
+Intelligent Web Services and Semantic Web
+Knowledge Management
+Miscellaneous
